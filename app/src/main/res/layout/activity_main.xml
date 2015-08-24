@@ -24,5 +24,6 @@
             android:text="Aktualisieren"
             android:layout_gravity="right"
             android:id="@+id/refresh"/>
+
     </LinearLayout>
 </RelativeLayout>
