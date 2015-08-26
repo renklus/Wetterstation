@@ -1,13 +1,29 @@
 package ch.renklus.android.wetterstation;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends Activity {
 
@@ -59,7 +75,7 @@ public class MainActivity extends Activity {
         listView.setAdapter(adapter);
     }
 
-    int i = 0;
+    /*int i = 0;
     private String[] GetValues()
     {
         String[] values =  new String[]
@@ -72,5 +88,76 @@ public class MainActivity extends Activity {
                 };
         values[0] = Integer.toString(++i);
         return values;
+    }*/
+
+    private String[] GetValues()
+    {
+        //sensorList = new ArrayList<>();
+        //new LoadAllProducts().execute();
+        //ListView lv = getListView();
+
+
+        // Building Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        // getting JSON string from URL
+        //JSONObject json = jParser.makeHttpRequest(url);
+        try {
+            JSONObject json = new NetworkInDifferentThread().execute(url).get();
+
+
+            // Check your log cat for JSON reponse
+            Log.d("All Sensor Values: ", json.toString());
+
+            try {
+                // Checking for SUCCESS TAG
+                int success = json.getInt(TAG_SUCCESS);
+
+                if (success == 1) {
+                    double humidity = json.getDouble("humidity");
+                    double light = json.getDouble("light");
+                    double pressure = json.getDouble("pressure");
+                    double rain = json.getDouble("rain");
+                    double rainamount = json.getDouble("rainamount");
+                    double temperature = json.getDouble("temperature");
+                    double winddirection = json.getDouble("winddirection");
+                    double windspeed = json.getDouble("windspeed");
+                    String[] values = new String[8];
+                    values[0] = "Feuchtigkeit: " + humidity;
+                    values[1] = "Licht: " + light;
+                    values[2] = "Luftdruck: " + pressure;
+                    values[3] = "Regen: " + rain;
+                    values[4] = "Regenmenge: " + rainamount;
+                    values[5] = "Temperatur: " + temperature;
+                    values[6] = "Windrichtung: " + winddirection;
+                    values[7] = "Windgeschwindigkeit: " + windspeed;
+                    return values;
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        catch (InterruptedException e)
+        {}
+        catch (ExecutionException e)
+        {}
+
+
+
+
+
+        return  null;
     }
+
+    private ProgressDialog pDialog;
+
+    ArrayList<HashMap<String, String>> sensorList;
+    private static String url="http://ravoser.homeip.net:8282/db-view/app/read_all.php";
+
+    private static final String TAG_SUCCESS = "success";
+    //private static final String TAG_PRODUCTS = "products";
+    //private static final String TAG_PID = "pid";
+    //private static final String TAG_NAME = "name";
+
+    JSONArray values = null;
 }
