@@ -152,7 +152,8 @@ public class MainActivity extends Activity {
     private ProgressDialog pDialog;
 
     ArrayList<HashMap<String, String>> sensorList;
-    private static String url="http://ravoser.homeip.net:8282/db-view/app/read_all.php";
+    //private static String url="http://ravoser.homeip.net:8282/db-view/app/read_all.php";
+    private static String url="http://192.168.1.48:80/db-view/app/read_all.php";
 
     private static final String TAG_SUCCESS = "success";
     //private static final String TAG_PRODUCTS = "products";
