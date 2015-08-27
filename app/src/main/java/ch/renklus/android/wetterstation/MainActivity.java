@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
         ListView listView = (ListView) findViewById(R.id.listView);
         String[] values = GetValues();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         listView.setAdapter(adapter);
     }
 
