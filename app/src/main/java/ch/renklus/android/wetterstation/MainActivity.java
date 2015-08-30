@@ -122,18 +122,18 @@ public class MainActivity extends Activity {
                     double winddirection = json.getDouble("winddirection");
                     double windspeed = json.getDouble("windspeed");
                     String[] values = new String[7];
-                    values[0] = "Feuchtigkeit: " + humidity + "%";
-                    values[1] = "Licht: " + light + " lux";
-                    values[2] = "Luftdruck: " + pressure + " hPa";
-                    //values[3] = "Regen: " + rain;
+                    values[2] = "Feuchtigkeit: " + "                  " + humidity + "%";
+                    values[3] = "Licht: " + "                               " + light + " lux";
+                    values[1] = "Luftdruck: " + "                       " + pressure + " hPa";
+                    //values[6] = "Regen: " + rain;
                     if(rain == 1)
-                        values[3] = "Regen: Ja";
+                        values[6] = "Regen:                              Ja";
                     else
-                        values[3] = "Regen: Nein";
-                    //values[4] = "Regenmenge: " + rainamount + "ml / m2";
-                    values[4] = "Temperatur: " + temperature + " °C";
-                    values[5] = "Windrichtung: " + winddirection + "°";
-                    values[6] = "Windgeschwindigkeit: " + windspeed + " m/s";
+                        values[6] = "Regen:                              Nein";
+                    //values[7] = "Regenmenge: " + rainamount + "ml / m2";
+                    values[0] = "Temperatur: " + "                    " + temperature + " °C";
+                    values[5] = "Windrichtung: " + "                " + winddirection + "°";
+                    values[4] = "Windgeschwindigkeit: " + "  " + windspeed + " m/s";
                     return values;
                 }
 
